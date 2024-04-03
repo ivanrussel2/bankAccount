@@ -18,4 +18,10 @@ public class UserGatewayImpl implements UserGateway {
     public User findById(Long id) {
         return mapper.entityToDomain(userRepository.findById(id).orElse(null));
     }
+
+    @Override
+    public Long save(User newUser) {
+       UserEntity userCreated =userRepository.save(mapper.domainToEntity(newUser));
+        return userCreated.getId();
+    }
 }

@@ -2,6 +2,8 @@ package com.exatIt.kata.exaltbank.domain.user;
 
 public interface UserQueries {
 
-    public User create(User newUser);
+    public Long create(User newUser);
+
+    public User read(Long id);
 
 }

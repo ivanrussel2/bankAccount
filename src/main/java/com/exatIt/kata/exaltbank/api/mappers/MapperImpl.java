@@ -63,6 +63,7 @@ public class MapperImpl implements IMapper{
     }
     @Override
     public UserDto domainToDto(User user){
+        if(user==null) return null;
         UserDto dto = new UserDto();
         dto.setId(user.getId());
         dto.setFirstName(user.getFirstName());
