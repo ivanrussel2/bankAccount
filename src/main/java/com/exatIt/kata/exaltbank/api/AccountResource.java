@@ -39,6 +39,10 @@ public class AccountResource {
         this.transactionQueries = transactionQueries;
     }
 
+    @GetMapping("/testApi")
+    public ResponseEntity test(){
+        return ResponseEntity.ok("web service is up");
+    }
     @PostMapping("/deposit")
     public ResponseEntity createDeposit(@RequestBody DepositAccountDto accountDto, HttpServletRequest request)
             throws UserNotFoundException {
@@ -75,6 +79,23 @@ public class AccountResource {
         else if (account instanceof SavingAccount savingAccount)
             return ResponseEntity.ok(mapper.domainToDto(savingAccount));
         else return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("")
+    public ResponseEntity list(){
+        List<AccountDto> accountDtos = accountQueries.list().stream().map(
+                account -> {
+                    if(account instanceof SavingAccount savingAccount){
+                        return mapper.domainToDto(savingAccount);
+                    }
+                    else if(account instanceof DepositAccount depositAccount){
+                        return mapper.domainToDto(depositAccount);
+                    }
+                    else {
+                        return null;
+                    }
+                }).collect(Collectors.toList());
+        return ResponseEntity.ok(accountDtos);
     }
 
     @PutMapping("/withdraw/{accountNumber}/{amount}")

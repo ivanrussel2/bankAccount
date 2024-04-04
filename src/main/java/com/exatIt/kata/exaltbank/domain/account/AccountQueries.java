@@ -5,6 +5,7 @@ import com.exatIt.kata.exaltbank.domain.account.entities.DepositAccount;
 import com.exatIt.kata.exaltbank.domain.account.entities.SavingAccount;
 import com.exatIt.kata.exaltbank.domain.user.UserNotFoundException;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface AccountQueries {
@@ -17,5 +18,7 @@ public interface AccountQueries {
     public boolean withdraw(UUID accountNumber, double amount) throws AccountException, AccountNotFoundException;
 
     public boolean deposit(UUID accountNumber, double amount) throws AccountException;
+
+    public List<Account> list();
 
 }

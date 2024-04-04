@@ -11,7 +11,9 @@ import com.exatIt.kata.exaltbank.persistence.account.AccountRepository;
 import com.exatIt.kata.exaltbank.persistence.account.entities.AccountEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class AccountGatewayImpl implements AccountGateway {
@@ -53,5 +55,20 @@ public class AccountGatewayImpl implements AccountGateway {
     public void updateDeposit(DepositAccount account) {
         DepositAccountEntity depositAccount =this.mapper.domainToEntity(account);
         this.accountRepository.save(depositAccount);
+    }
+
+    @Override
+    public List<Account> list() {
+        return this.accountRepository.findAll().stream()
+                .map(accountEntity -> {
+                    if (accountEntity instanceof SavingAccountEntity savingAccountEntity) {
+                        return mapper.entityToDomain(savingAccountEntity);
+                    } else if (accountEntity instanceof DepositAccountEntity depositAccountEntity) {
+                        return mapper.entityToDomain(depositAccountEntity);
+                    }else{
+                        return null;
+                    }
+                })
+                .collect(Collectors.toList());
     }
 }

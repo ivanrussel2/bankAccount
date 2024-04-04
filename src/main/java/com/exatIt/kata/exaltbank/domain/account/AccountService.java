@@ -11,6 +11,7 @@ import com.exatIt.kata.exaltbank.persistence.user.UserGateway;
 import com.exatIt.kata.exaltbank.utils.AccountTransactionEnum;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -121,5 +122,10 @@ public class AccountService implements AccountQueries {
         accountGateway.updateDeposit(account);
         loggingGateway.saveAccountTransactions(account,AccountTransactionEnum.DEPOSIT,amount);
         return true;
+    }
+
+    @Override
+    public List<Account> list() {
+        return accountGateway.list();
     }
 }
