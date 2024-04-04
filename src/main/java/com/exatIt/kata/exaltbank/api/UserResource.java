@@ -7,13 +7,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriBuilder;
 
 import java.net.URI;
-import java.util.UUID;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 public class UserResource {
 
     private final UserQueries userQueries;
@@ -27,6 +25,10 @@ public class UserResource {
     public ResponseEntity read(@PathVariable Long id){
         UserDto userDto = mapper.domainToDto(userQueries.read(id));
         return ResponseEntity.ok(userDto);
+    }
+    @GetMapping("/{name}/{surname}")
+    public ResponseEntity test(@PathVariable String name, @PathVariable String surname){
+        return ResponseEntity.ok("hello "+ name+" , the web service is up");
     }
 
     @PostMapping("")

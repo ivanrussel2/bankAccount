@@ -39,10 +39,7 @@ public class AccountResource {
         this.transactionQueries = transactionQueries;
     }
 
-    @GetMapping("/testApi")
-    public ResponseEntity test(){
-        return ResponseEntity.ok("web service is up");
-    }
+
     @PostMapping("/deposit")
     public ResponseEntity createDeposit(@RequestBody DepositAccountDto accountDto, HttpServletRequest request)
             throws UserNotFoundException {
